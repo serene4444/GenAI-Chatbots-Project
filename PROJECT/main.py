@@ -7,7 +7,7 @@ from pydantic import BaseModel
 import uvicorn
 from fastapi import FastAPI
 
-class Item(BaseModel()):
+class Item(BaseModel):
     number1: float
     number2: float
 
