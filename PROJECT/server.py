@@ -15,3 +15,15 @@ from fastapi import FastAPI
 
 load_dotenv()
 
+api_key= os.get.env("OPENAI_API_KEY")
+
+if api_key:
+    print("API key: " + api_key[0:6])
+else:
+    print("API key not found")
+
+storage_content = StorageContent.from_defaults(persist_dir = "ml_index")
+
+index = load_index_from_storage(storage_content)
+
+engine = index.as_query
