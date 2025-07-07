@@ -11,6 +11,9 @@ class Item(BaseModel):
     number1: float
     number2: float
 
+class Question(BaseModel):
+    question: str
+
 #Create an instance of FastAPI class
 app = FastAPI()
 
