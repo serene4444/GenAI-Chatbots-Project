@@ -5,6 +5,7 @@ Created on 07/06/2025
 """
 
 from llama_index.core import VectorScore, SimpleDirectoryReader, StorageContext
+from llama_index.core import load_index_from_storage
 
 from dotenv import load_dotenv
 import os
@@ -12,6 +13,10 @@ import os
 from pydantic import BaseModel
 import uvicorn
 from fastapi import FastAPI
+
+class Item(BaseModel):
+    question: str
+
 
 load_dotenv()
 
@@ -22,8 +27,17 @@ if api_key:
 else:
     print("API key not found")
 
-storage_content = StorageContent.from_defaults(persist_dir = "ml_index")
+storage_content = StorageContext.from_defaults(persist_dir = "ml_index")
 
 index = load_index_from_storage(storage_content)
 
 engine = index.as_query
+
+app = FastAPI()
+@app.post("/")
+async def query(item: Item):
+    result = engine.query(item.question)
+    return(result)
+
+if __name__ == "__main__":
+    uvicorn.run("server:app", host = "127.0.0.1", port = 8000, reload = True)

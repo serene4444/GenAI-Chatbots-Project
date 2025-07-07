@@ -23,5 +23,9 @@ async def read_root():
 async def sum(item: Item):
     return {"result": item.number1 + item.number2}
 
+@app.post("/ask")
+async def answer_question(item: Question):
+    return {"response": "Python is better for general-purpose programming, while R is specialized for statistical analysis and data visualization."}
+
 if __name__ == "__main__":
     uvicorn.run("main:app", host = "127.0.0.1", port = 8000, reload = True)
