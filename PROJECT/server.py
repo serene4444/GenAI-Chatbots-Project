@@ -4,8 +4,9 @@ Created on 07/06/2025
 @author: Serene Plummer
 """
 
-from llama_index.core import VectorScore, SimpleDirectoryReader, StorageContext
-from llama_index.core import load_index_from_storage
+from llama_index.readers.file import SimpleDirectoryReader
+from llama_index.storage.context import StorageContext
+from llama_index import load_index_from_storage
 
 from dotenv import load_dotenv
 import os
@@ -40,4 +41,4 @@ async def query(item: Item):
     return{"response": str(result)}
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host = "127.0.0.1", port = 8000, reload = True)
+    uvicorn.run("server:app", host = "127.0.0.1", port = 8000, reload = True)
