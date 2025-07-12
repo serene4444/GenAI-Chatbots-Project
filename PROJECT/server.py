@@ -5,7 +5,7 @@ Created on 07/06/2025
 """
 
 from llama_index.readers.file import SimpleDirectoryReader
-from llama_index.storage.context import StorageContext
+from llama_index import StorageContext
 from llama_index import load_index_from_storage
 
 from dotenv import load_dotenv
@@ -35,7 +35,7 @@ index = load_index_from_storage(storage_content)
 engine = index.as_query_engine()
 
 app = FastAPI()
-@app.post("/")
+@app.post("/ask")
 async def query(item: Item):
     result = engine.query(item.question)
     return{"response": str(result)}
